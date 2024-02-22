@@ -2,14 +2,21 @@ import './style.css'
 import * as THREE from 'three'
 import { addBoilerPlateMeshes, addStandardMesh } from './addMeshes'
 import { addLight } from './addLights'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-const renderer = new THREE.WebGLRenderer()
+const renderer = new THREE.WebGLRenderer({ antialias: true })
 const camera = new THREE.PerspectiveCamera(
 	75,
 	window.innerWidth / window.innerHeight,
 	0.1,
 	100
 )
+const clock = new THREE.Clock()
+const controls = new OrbitControls(camera, renderer.domElement)
+controls.enableDamping = true
+controls.dampingFactor = 0.08
+// controls.enablePan = false
+// controls.enableZoom = false
 const scene = new THREE.Scene()
 const meshes = {}
 const lights = {}
@@ -43,6 +50,8 @@ function resize() {
 
 function animate() {
 	requestAnimationFrame(animate)
+	const delta = clock.getDelta()
+	controls.update()
 	meshes.default.rotation.x += 0.01
 	meshes.default.rotation.y -= 0.01
 	meshes.standard.rotation.x -= 0.01

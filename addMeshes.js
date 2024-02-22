@@ -3,7 +3,10 @@ import {
 	MeshBasicMaterial,
 	MeshStandardMaterial,
 	Mesh,
+	TextureLoader,
 } from 'three'
+
+const loader = new TextureLoader()
 
 export const addBoilerPlateMeshes = () => {
 	const box = new BoxGeometry(1, 1, 1)
